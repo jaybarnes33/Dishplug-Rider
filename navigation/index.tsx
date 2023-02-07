@@ -3,27 +3,56 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { FontAwesome } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { BlurView } from "expo-blur";
+import * as React from "react";
+import { ColorSchemeName, Pressable } from "react-native";
+import {
+  CogIcon,
+  CurrencyPoundIcon,
+  HomeIcon,
+  ListBulletIcon,
+} from "react-native-heroicons/outline";
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
+import {
+  CogIcon as CogSolid,
+  CurrencyPoundIcon as CurrencySolid,
+  HomeIcon as HomeSolid,
+  ListBulletIcon as ListSolid,
+} from "react-native-heroicons/solid";
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+import Register from "../screens/Auth";
+import Earnings from "../screens/Earnings";
+import Map from "../screens/Main";
+import Orders from "../screens/Orders";
+import Settings from "../screens/Settings";
+
+import {
+  RootStackParamList,
+  RootTabParamList,
+  RootTabScreenProps,
+} from "../types";
+import LinkingConfiguration from "./LinkingConfiguration";
+
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
       <RootNavigator />
     </NavigationContainer>
   );
@@ -38,11 +67,16 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -50,7 +84,7 @@ function RootNavigator() {
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
- */
+//  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
@@ -58,39 +92,56 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+        headerShown: false,
+        tabBarActiveBackgroundColor: "white",
+        tabBarActiveTintColor: "grey",
+      }}
+    >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+        name="Home"
+        component={Map}
+        options={({ navigation }: RootTabScreenProps<"Home">) => ({
+          title: "Home",
+          tabBarIcon: ({ focused }) =>
+            !focused ? <HomeIcon color="grey" /> : <HomeSolid color="grey" />,
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
+        name="Orders"
+        component={Orders}
+        options={({ navigation }: RootTabScreenProps<"Orders">) => ({
+          title: "Orders",
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <ListBulletIcon color="grey" />
+            ) : (
+              <ListSolid color="grey" />
+            ),
+        })}
+      />
+      <BottomTab.Screen
+        name="Earnings"
+        component={Earnings}
+        options={({ navigation }: RootTabScreenProps<"Earnings">) => ({
+          title: "Earnings",
+          tabBarIcon: ({ focused }) =>
+            !focused ? (
+              <CurrencyPoundIcon color="grey" />
+            ) : (
+              <CurrencySolid color="grey" />
+            ),
+        })}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={Settings}
+        options={({ navigation }: RootTabScreenProps<"Settings">) => ({
+          title: "Settings",
+          tabBarIcon: ({ focused }) =>
+            !focused ? <CogIcon color="grey" /> : <CogSolid color="grey" />,
+        })}
       />
     </BottomTab.Navigator>
   );
@@ -100,7 +151,7 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
