@@ -56,6 +56,7 @@ const Map = () => {
       <MapView
         className="flex-1 h-full "
         zoomControlEnabled={true}
+        region={currentLocation}
         onMarkerDrag={(e) =>
           setCurrentLocation({
             longitude: e.nativeEvent.coordinate.longitude,
