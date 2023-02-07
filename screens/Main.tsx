@@ -12,8 +12,8 @@ import {
 } from "react-native-heroicons/solid";
 const Map = () => {
   const [currentLocation, setCurrentLocation] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 0,
+    longitude: 0,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -38,7 +38,7 @@ const Map = () => {
   }, []);
 
   return (
-    <View className="flex-1 pt-12 border border-solid border-neutral-300">
+    <SafeAreaView className="flex-1 mt-7 border-neutral-300">
       <View className="flex-row px-4 pb-2 gap-4 items-center">
         <Image
           source={require("../assets/images/me.png")}
@@ -56,8 +56,6 @@ const Map = () => {
       <MapView
         className="flex-1 h-full "
         zoomControlEnabled={true}
-        initialRegion={currentLocation}
-        showsUserLocation={true}
         onMarkerDrag={(e) =>
           setCurrentLocation({
             longitude: e.nativeEvent.coordinate.longitude,
@@ -69,7 +67,7 @@ const Map = () => {
       >
         <Marker coordinate={currentLocation} />
       </MapView>
-    </View>
+    </SafeAreaView>
   );
 };
 

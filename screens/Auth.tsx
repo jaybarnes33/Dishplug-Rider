@@ -32,7 +32,7 @@ const Register = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="mt-5">
       {step === 1 && (
         <Step next={handleNextStep} step={1}>
           <Title>Enter your phone number</Title>

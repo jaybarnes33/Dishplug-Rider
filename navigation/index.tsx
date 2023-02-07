@@ -43,16 +43,9 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+export default function Navigation() {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -88,8 +81,6 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -97,6 +88,9 @@ function BottomTabNavigator() {
         headerShown: false,
         tabBarActiveBackgroundColor: "white",
         tabBarActiveTintColor: "grey",
+        tabBarStyle: {
+          paddingBottom: 5,
+        },
       }}
     >
       <BottomTab.Screen
