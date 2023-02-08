@@ -39,7 +39,7 @@ const Map = () => {
 
   return (
     <SafeAreaView className="flex-1 mt-7 border-neutral-300">
-      <View className="flex-row px-4 pb-2 gap-4 items-center">
+      <View className="flex-row px-4 pb-2 gap-4 items-center bg-white">
         <Image
           source={require("../assets/images/me.png")}
           className="h-10 w-10 rounded-full"
@@ -57,7 +57,7 @@ const Map = () => {
         className="flex-1 h-full "
         zoomControlEnabled={true}
         region={currentLocation}
-        onMarkerDrag={(e) =>
+        onMarkerDragEnd={(e) =>
           setCurrentLocation({
             longitude: e.nativeEvent.coordinate.longitude,
             latitude: e.nativeEvent.coordinate.latitude,

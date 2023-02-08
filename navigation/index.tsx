@@ -15,14 +15,14 @@ import { BlurView } from "expo-blur";
 import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
 import {
-  CogIcon,
   CurrencyPoundIcon,
   HomeIcon,
   ListBulletIcon,
+  UserIcon,
 } from "react-native-heroicons/outline";
 
 import {
-  CogIcon as CogSolid,
+  UserIcon as UserSolid,
   CurrencyPoundIcon as CurrencySolid,
   HomeIcon as HomeSolid,
   ListBulletIcon as ListSolid,
@@ -34,7 +34,7 @@ import Register from "../screens/Auth";
 import Earnings from "../screens/Earnings";
 import Map from "../screens/Main";
 import Orders from "../screens/Orders";
-import Settings from "../screens/Settings";
+import Settings from "../screens/Profile";
 
 import {
   RootStackParamList,
@@ -87,10 +87,7 @@ function BottomTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarActiveBackgroundColor: "white",
-        tabBarActiveTintColor: "grey",
-        tabBarStyle: {
-          paddingBottom: 5,
-        },
+        tabBarActiveTintColor: "#1a1a1a",
       }}
     >
       <BottomTab.Screen
@@ -99,7 +96,11 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<"Home">) => ({
           title: "Home",
           tabBarIcon: ({ focused }) =>
-            !focused ? <HomeIcon color="grey" /> : <HomeSolid color="grey" />,
+            !focused ? (
+              <HomeIcon color="#1a1a1a" />
+            ) : (
+              <HomeSolid color="#1a1a1a" />
+            ),
         })}
       />
       <BottomTab.Screen
@@ -109,9 +110,9 @@ function BottomTabNavigator() {
           title: "Orders",
           tabBarIcon: ({ focused }) =>
             !focused ? (
-              <ListBulletIcon color="grey" />
+              <ListBulletIcon color="#1a1a1a" />
             ) : (
-              <ListSolid color="grey" />
+              <ListSolid color="#1a1a1a" />
             ),
         })}
       />
@@ -122,19 +123,23 @@ function BottomTabNavigator() {
           title: "Earnings",
           tabBarIcon: ({ focused }) =>
             !focused ? (
-              <CurrencyPoundIcon color="grey" />
+              <CurrencyPoundIcon color="#1a1a1a" />
             ) : (
-              <CurrencySolid color="grey" />
+              <CurrencySolid color="#1a1a1a" />
             ),
         })}
       />
       <BottomTab.Screen
-        name="Settings"
+        name="Profile"
         component={Settings}
         options={({ navigation }: RootTabScreenProps<"Settings">) => ({
-          title: "Settings",
+          title: "Profile",
           tabBarIcon: ({ focused }) =>
-            !focused ? <CogIcon color="grey" /> : <CogSolid color="grey" />,
+            !focused ? (
+              <UserIcon color="#1a1a1a" />
+            ) : (
+              <UserSolid color="#1a1a1a" />
+            ),
         })}
       />
     </BottomTab.Navigator>

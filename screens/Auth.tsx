@@ -19,15 +19,18 @@ const Register = () => {
   const [name, setName] = useState("");
   const navigation = useNavigation();
   const handleNextStep = () => {
-    setStep(step + 1);
     if (step === 1) {
+      phoneNumber && setStep(step + 1);
       // send OTP to phone number
     } else if (step === 2) {
       // verify OTP
+      otp && setStep(step + 1);
     } else {
       // submit form data
-      AsyncStorage.setItem("name", name);
-      navigation.navigate("Main");
+      if (name) {
+        AsyncStorage.setItem("name", name);
+        navigation.navigate("Main");
+      }
     }
   };
 
