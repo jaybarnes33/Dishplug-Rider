@@ -132,7 +132,7 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="Profile"
         component={Settings}
-        options={({ navigation }: RootTabScreenProps<"Settings">) => ({
+        options={({ navigation }: RootTabScreenProps<"Profile">) => ({
           title: "Profile",
           tabBarIcon: ({ focused }) =>
             !focused ? (
