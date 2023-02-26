@@ -17,11 +17,19 @@ const Map = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
-  const [name, setName] = useState<string | null>();
+  const [rider, setRider] = useState({
+    name: "",
+    avatar: "",
+    vehicleNumber: "",
+  });
 
   useEffect(() => {
     (async () => {
-      setName(await AsyncStorage.getItem("name"));
+      setRider({
+        name: (await AsyncStorage.getItem("name")) || "",
+        vehicleNumber: (await AsyncStorage.getItem("vehicleNumber")) || "",
+        avatar: (await AsyncStorage.getItem("avatar")) || "",
+      });
       let { status } = await Geolocation.requestForegroundPermissionsAsync();
       if (status === "granted") {
         let location = await Geolocation.getCurrentPositionAsync({
@@ -41,12 +49,12 @@ const Map = () => {
     <SafeAreaView className="flex-1 mt-7 border-neutral-300">
       <View className="flex-row px-4 pb-2 gap-4 items-center bg-white">
         <Image
-          source={require("../assets/images/me.png")}
+          source={{ uri: rider.avatar }}
           className="h-10 w-10 rounded-full"
         />
         <View className=" pb-2 flex-1">
           <Text className="text-gray-800">
-            Welcome <Text className="font-bold">{name},</Text>
+            Welcome <Text className="font-bold">{rider.name},</Text>
           </Text>
           <Text>Let's deliver happiness</Text>
         </View>

@@ -29,6 +29,7 @@ import {
 } from "react-native-heroicons/solid";
 
 import Colors from "../constants/Colors";
+import AuthContext from "../context/auth/AuthContext";
 import useColorScheme from "../hooks/useColorScheme";
 import Register from "../screens/Auth";
 import Earnings from "../screens/Earnings";
@@ -59,18 +60,20 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Main"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
+    <AuthContext>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Main"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </AuthContext>
   );
 }
 
