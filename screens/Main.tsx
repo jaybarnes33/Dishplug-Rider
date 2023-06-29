@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MapView, { Marker } from "react-native-maps";
 import * as Geolocation from "expo-location";
-import { SafeAreaView, View, Text, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   UserIcon,
@@ -11,6 +11,7 @@ import {
   Cog6ToothIcon,
 } from "react-native-heroicons/solid";
 import { useLocation } from "../context/Location";
+import { SafeAreaView } from "react-native-safe-area-context";
 const Map = () => {
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,

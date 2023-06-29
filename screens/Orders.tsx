@@ -1,6 +1,7 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 import { CheckCircleIcon } from "react-native-heroicons/outline";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Orders = () => {
   const orders = [

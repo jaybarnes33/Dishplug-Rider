@@ -1,7 +1,8 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useContext, useState } from "react";
 import Input from "../components/Core/Input";
 import { Context } from "../context/auth/AuthContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Settings = () => {
   const { riderDetails, setRiderDetails } = useContext(Context);
