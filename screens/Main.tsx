@@ -10,6 +10,7 @@ import {
   Cog8ToothIcon,
   Cog6ToothIcon,
 } from "react-native-heroicons/solid";
+import { useLocation } from "../context/Location";
 const Map = () => {
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
@@ -23,6 +24,7 @@ const Map = () => {
     vehicleNumber: "",
   });
 
+  const { location } = useLocation();
   useEffect(() => {
     (async () => {
       setRider({
@@ -30,18 +32,6 @@ const Map = () => {
         vehicleNumber: (await AsyncStorage.getItem("vehicleNumber")) || "",
         avatar: (await AsyncStorage.getItem("avatar")) || "",
       });
-      let { status } = await Geolocation.requestForegroundPermissionsAsync();
-      if (status === "granted") {
-        let location = await Geolocation.getCurrentPositionAsync({
-          accuracy: 6,
-        });
-        setCurrentLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        });
-      }
     })();
   }, []);
 
@@ -64,7 +54,7 @@ const Map = () => {
       <MapView
         className="flex-1 h-full "
         zoomControlEnabled={true}
-        region={currentLocation}
+        region={{ ...location, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
         onMarkerDragEnd={(e) =>
           setCurrentLocation({
             longitude: e.nativeEvent.coordinate.longitude,
@@ -74,7 +64,7 @@ const Map = () => {
           })
         }
       >
-        <Marker coordinate={currentLocation} />
+        <Marker coordinate={location} />
       </MapView>
     </SafeAreaView>
   );

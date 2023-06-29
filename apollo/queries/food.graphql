@@ -1,0 +1,28 @@
+query GetFoods {
+  foods {
+    id
+    name
+    description
+    price
+    images
+    store {
+      id
+      name
+    }
+  }
+}
+
+query GetFood($id: ID!) {
+  food(id: $id) {
+    id
+    name
+    description
+    price
+    images
+    store {
+      id
+      city
+      name
+    }
+  }
+}
