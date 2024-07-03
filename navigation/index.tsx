@@ -43,6 +43,9 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import WebSocketManager from "../socket/Socket";
+import { WebSocketProvider } from "../socket/SocketContext";
+import { LocationProvider } from "../context/Location";
 
 export default function Navigation() {
   return (
@@ -52,6 +55,7 @@ export default function Navigation() {
   );
 }
 
+const webSocketManger = new WebSocketManager();
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
@@ -60,20 +64,24 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <AuthContext>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Main"
-          component={BottomTabNavigator}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </AuthContext>
+    <WebSocketProvider webSocketManager={webSocketManger}>
+      <LocationProvider>
+        <AuthContext>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Main"
+              component={BottomTabNavigator}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </AuthContext>
+      </LocationProvider>
+    </WebSocketProvider>
   );
 }
 

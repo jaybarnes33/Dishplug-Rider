@@ -9,6 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Register = () => {
   const { step } = useContext(Context);
+
   return (
     <SafeAreaView className="mt-5">
       {step === 1 && <One />}

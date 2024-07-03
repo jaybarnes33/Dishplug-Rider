@@ -13,6 +13,8 @@ const Three = () => {
     setRiderDetails,
   } = useContext(Context);
 
+  const formData = new FormData();
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -20,8 +22,6 @@ const Three = () => {
 
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.canceled) {
       setRiderDetails((prevState) => ({
@@ -32,7 +32,11 @@ const Three = () => {
   };
   return (
     <Step next={handleNextStep} step={3}>
-      <Title>Rider details</Title>
+      <Title>Rider Details</Title>
+      <Text>
+        We are done setting your account up, please provide your details to
+        start picking orders
+      </Text>
       <View className="my-2">
         <Text className="mb-1">Enter your name</Text>
         <Input
